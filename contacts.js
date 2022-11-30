@@ -33,7 +33,9 @@ const addContact = async (name, email, phone) => {
   const parsedContactsList = JSON.parse(result);
   const contact = { id: String(ObjectID.index), name, email, phone };
   parsedContactsList.push(contact);
-  await fs.writeFile(contactsPath, JSON.stringify(parsedContactsList));
+  await fs.writeFile(contactsPath, JSON.stringify(parsedContactsList), err => {
+    if (err) return err.message;
+  });
   return parsedContactsList;
 };
 
